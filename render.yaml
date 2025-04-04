@@ -3,6 +3,7 @@ services:
   - type: web
     name: qrcodewars-backend
     env: python
+    plan: free
     buildCommand: cd backend && pip install -r requirements.txt
     startCommand: cd backend && alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port $PORT
     envVars:
@@ -11,20 +12,19 @@ services:
       - key: QR_SECRET_SALT
         generateValue: true
       - key: DATABASE_URL
-        fromDatabase:
-          name: qrcodewars-db
-          property: connectionString
+        value: sqlite:///./qrcodewars.db
     autoDeploy: true
 
   # Фронтенд сервис  
   - type: web
     name: qrcodewars-frontend
     env: node
+    plan: free
     buildCommand: cd frontend && npm install && npm run build
     startCommand: cd frontend && npx serve -s build -l $PORT
     envVars:
       - key: REACT_APP_API_URL
-        value: https://qrcodewars-backend.onrender.com
+        value: https://qrcodewars-backend.onrender.com/api/v1
     autoDeploy: true
 
 databases:
