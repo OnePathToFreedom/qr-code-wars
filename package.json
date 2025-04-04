@@ -1,0 +1,22 @@
+{
+  "name": "qr-code-wars",
+  "version": "1.0.0",
+  "description": "QR Code Wars application",
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "scripts": {
+    "start": "cd frontend && npm start",
+    "build": "cd frontend && npm install && npm run build",
+    "install-frontend": "cd frontend && npm install",
+    "install-backend": "cd backend && pip install -r requirements.txt",
+    "install": "npm run install-frontend",
+    "dev": "concurrently \"cd backend && uvicorn app.main:app --reload\" \"cd frontend && npm start\""
+  },
+  "cacheDirectories": [
+    "frontend/node_modules"
+  ],
+  "devDependencies": {
+    "concurrently": "^8.0.1"
+  }
+} 
